@@ -1,32 +1,54 @@
 import 'package:car_spotter/main.dart';
-import 'package:car_spotter/models/spotted_car.dart';
+import 'package:car_spotter/models/post.dart';
 import 'package:car_spotter/models/user.dart';
+import 'package:car_spotter/providers/current_day_post_provider.dart';
+import 'package:car_spotter/ui/widgets/scrolling_row.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class CurrentDayPosts extends StatefulWidget {
+class CurrentDayPosts extends ConsumerStatefulWidget {
   const CurrentDayPosts({super.key, required this.user});
 
   final User user;
 
   @override
-  State<CurrentDayPosts> createState() {
+  ConsumerState<CurrentDayPosts> createState() {
     return _CurrentDayPostsState();
   }
 }
 
-class _CurrentDayPostsState extends State<CurrentDayPosts> {
+class _CurrentDayPostsState extends ConsumerState<CurrentDayPosts> {
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+    _pageController.addListener(() {
+      int currentPage = _pageController.page?.round() ?? 0;
+      ref.read(currentDayPostProvider.notifier).setPage(currentPage);
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();    
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return SizedBox(
-      height: screenWidth * 0.84,
+      height: screenWidth * 0.542,
       child: PageView.builder(
+        controller: _pageController,
         itemCount: widget.user.currentDayPosts.length,
         itemBuilder: (context, index) {
-          SpottedCar post = widget.user.currentDayPosts[index];
+          Post post = widget.user.currentDayPosts[index];
           return Row(
             children: [
               Expanded(
@@ -38,8 +60,8 @@ class _CurrentDayPostsState extends State<CurrentDayPosts> {
                 child: Padding(
                   padding: EdgeInsets.only(
                       left: screenWidth * 0.05555,
-                      top: screenHeight * 0.0625,
-                      bottom: screenHeight * 0.0625),
+                      top: screenHeight * 0.01,
+                      bottom: screenHeight * 0.01),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

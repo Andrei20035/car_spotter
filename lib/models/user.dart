@@ -1,4 +1,4 @@
-import 'package:car_spotter/models/spotted_car.dart';
+import 'package:car_spotter/models/post.dart';
 import 'package:car_spotter/models/user_car.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,8 +13,9 @@ class User {
   String country;
   int spotScore;
   Car? car;
-  final List<SpottedCar> posts;
-  final List<SpottedCar> currentDayPosts;
+  final List<Post> posts;
+  final List<Post> currentDayPosts;
+  final List<User> friends;
 
   User({
     String? id,
@@ -25,11 +26,13 @@ class User {
     required this.country,
     this.spotScore = 0,
     this.car,
-    List<SpottedCar>? currentDayPosts,
-    List<SpottedCar>? posts
+    List<Post>? currentDayPosts,
+    List<Post>? posts,
+    List<User>? friends
   })  : id = id ?? Uuid().v4(),
         posts = posts ?? [],
-        currentDayPosts = currentDayPosts ?? [];
+        currentDayPosts = currentDayPosts ?? [],
+        friends = friends ?? [];
 
 
   void updateProfilePicture(ImageProvider newProfilePicture) {
@@ -60,7 +63,7 @@ class User {
     car = newCar;
   }
 
-  void addPost(SpottedCar newPost) {
+  void addPost(Post newPost) {
     posts.add(newPost);
     currentDayPosts.add(newPost);
   }
@@ -72,5 +75,13 @@ class User {
 
   void resetTodayPosts() {
     currentDayPosts.clear();
+  }
+
+  void addFriend(User user) {
+    friends.add(user);
+  }
+
+  void removeFriend(String id) {
+    friends.removeWhere((user) => user.id == id);
   }
 }

@@ -1,7 +1,12 @@
 import 'package:car_spotter/main.dart';
 import 'package:car_spotter/models/user.dart';
+import 'package:car_spotter/providers/current_day_post_provider.dart';
+import 'package:car_spotter/test_data.dart';
 import 'package:car_spotter/ui/widgets/current_day_posts.dart';
+import 'package:car_spotter/ui/widgets/feed_posts.dart';
+import 'package:car_spotter/ui/widgets/post_your_find_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -85,11 +90,32 @@ class _FeedScreenState extends State<FeedScreen> {
         child: Align(
           alignment: Alignment.topCenter,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0472),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
             child: Column(
               children: [
-                SizedBox(height: screenHeight * 0.12),
-                CurrentDayPosts(user: widget.user)
+                SizedBox(height: screenHeight * 0.17),
+                CurrentDayPosts(user: widget.user),
+                SizedBox(height: screenHeight * 0.04),
+                Consumer(builder: (context, ref, child) {
+                  final currentPage = ref.watch(currentDayPostProvider);
+                  final numberOfPages = widget.user.posts.length;
+                  return Wrap(
+                    spacing: 30,
+                    children: List.generate(numberOfPages, (index) {
+                      return Icon(
+                        Icons.circle,
+                        color: currentPage == index
+                            ? Colors.white
+                            : const Color(0xFF696969),
+                        size: 12,
+                      );
+                    }),
+                  );
+                }),
+                SizedBox(height: screenHeight * 0.04),
+                const PostYourFindButton(),
+                SizedBox(height: screenHeight * 0.04),
+                FeedPosts(user: dummyUser),
               ],
             ),
           ),

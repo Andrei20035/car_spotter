@@ -1,6 +1,6 @@
-import 'package:car_spotter/models/spotted_car.dart';
+import 'package:car_spotter/models/post.dart';
 import 'package:car_spotter/models/user.dart';
-import 'package:car_spotter/models/user_car.dart';
+import 'package:car_spotter/test_data.dart';
 import 'package:car_spotter/ui/screens/app_presentation.dart';
 import 'package:car_spotter/models/list_of_screens.dart';
 import 'package:car_spotter/ui/screens/feed.dart';
@@ -9,6 +9,7 @@ import 'package:car_spotter/ui/screens/profile_customization.dart';
 import 'package:car_spotter/ui/screens/your_car.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final theme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
@@ -18,7 +19,13 @@ final theme = ThemeData(
 );
 
 void main() {
-  runApp(const App());
+  loadTestData();
+  
+  runApp(
+    const ProviderScope(
+      child: App(),
+    ),
+  );
 }
 
 class App extends StatelessWidget {
@@ -44,38 +51,10 @@ class App extends StatelessWidget {
         const AssetImage("assets/images/magnifying_glass.png"), context);
     precacheImage(const AssetImage("assets/images/podium.png"), context);
 
-
-
-
-    const ImageProvider profilePictureme =
-        AssetImage('assets/images/profile_picture.jpg');
-    final User dummyUser = User(
-        profilePicture: profilePictureme,
-        username: "Andrei20035",
-        firstName: "Andrei",
-        lastName: "Rusu",
-        country: "Romania");
-    final SpottedCar dummyCar1 = SpottedCar(
-      image: const AssetImage('assets/images/dummyCar.png'),
-      user: dummyUser,
-      points: 300,
-      car: "BMW E9",
-    );
-    dummyUser.addPost(dummyCar1);
-
-    final SpottedCar dummyCar2 = SpottedCar(
-      image: const AssetImage('assets/images/dummyCar.png'),
-      user: dummyUser,
-      points: 300,
-      car: "BMW E9",
-    );
-    dummyUser.addPost(dummyCar2);
-
-
-
+    
 
     return MaterialApp(
-      initialRoute: '/AppPresentation',
+      initialRoute: '/feed',
       routes: {
         '/AppPresentation': (context) =>
             AppPresentation(screens: ScreenList().screens),

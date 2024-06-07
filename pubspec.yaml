@@ -43,6 +43,8 @@ dependencies:
   uuid: ^4.4.0
   google_maps_flutter: ^2.6.1
   intl: ^0.19.0
+  flutter_riverpod: ^2.5.1
+  marquee: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -90,6 +92,18 @@ flutter:
     - assets/images/icons/clock.png
     - assets/images/icons/car.png
     - assets/images/icons/gps.png
+    - assets/images/profile_picture1.jpg
+    - assets/images/profile_picture2.jpg
+    - assets/images/posts/image1.jpg
+    - assets/images/posts/image2.jpg
+    - assets/images/posts/image3.jpg
+    - assets/images/posts/image4.jpg
+    - assets/images/posts/image5.jpg
+    - assets/images/posts/image6.jpg
+    - assets/images/posts/image7.jpg
+    - assets/images/posts/image8.jpg
+    - assets/images/posts/image9.jpg
+    - assets/images/icons/three-dots.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
