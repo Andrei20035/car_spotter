@@ -21,8 +21,9 @@ class FeedPosts extends StatelessWidget {
       allPosts.addAll(friend.currentDayPosts);
     }
 
-    return Expanded(
-      child: ListView.builder(
+      return ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.zero,
         itemCount: allPosts.length,
         itemBuilder: (context, index) {
@@ -111,7 +112,6 @@ class FeedPosts extends StatelessWidget {
             ],
           );
         },
-      ),
     );
   }
 }

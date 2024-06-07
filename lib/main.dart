@@ -54,7 +54,7 @@ class App extends StatelessWidget {
     
 
     return MaterialApp(
-      initialRoute: '/feed',
+      initialRoute: '/AppPresentation',
       routes: {
         '/AppPresentation': (context) =>
             AppPresentation(screens: ScreenList().screens),

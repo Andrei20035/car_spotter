@@ -67,7 +67,7 @@ final List<Post> postsFriend1 = [
     image: const AssetImage('assets/images/posts/image4.jpg'),
     user: friend1,
     points: 300,
-    car: "Mercedes E-class",
+    car: "Mercedes S-class",
   ),
   Post(
     image: const AssetImage('assets/images/posts/image5.jpg'),
