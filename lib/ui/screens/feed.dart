@@ -6,7 +6,6 @@ import 'package:car_spotter/ui/widgets/current_day_posts.dart';
 import 'package:car_spotter/ui/widgets/feed_posts.dart';
 import 'package:car_spotter/ui/widgets/post_your_find_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -27,6 +26,7 @@ class _FeedScreenState extends State<FeedScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final gradientHeight = screenHeight * 0.5;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -39,16 +39,14 @@ class _FeedScreenState extends State<FeedScreen> {
               end: Alignment.bottomCenter,
               colors: [
                 Color.fromARGB(255, 0, 0, 0),
-                Color.fromARGB(210, 0, 0, 0),
-                Color.fromARGB(190, 0, 0, 0),
-                Color.fromARGB(150, 0, 0, 0),
-                Colors.transparent,
+                Color.fromARGB(200, 0, 0, 0),
+                Color.fromARGB(70, 0, 0, 0),
+                Color.fromARGB(0, 0, 0, 0),
               ],
               stops: [
-                0.4,
-                0.6,
-                0.7,
-                0.8,
+                0.5,
+                0.7, 
+                0.9,
                 1,
               ],
             ),
@@ -101,54 +99,69 @@ class _FeedScreenState extends State<FeedScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFF000000),
-                Color(0xFF080C30),
-              ],
-              stops: [
-                0.0,
-                0.54,
-              ],
+        child: Stack(
+          children: [
+            Container(
+              height: gradientHeight,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF000000),
+                    Color.fromARGB(255, 5, 8, 29),
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
             ),
-          ),
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+            Positioned(
+              top: gradientHeight - 2,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                color: const Color.fromARGB(255, 5, 8, 29),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
               child: Column(
                 children: [
                   SizedBox(height: screenHeight * 0.17),
                   CurrentDayPosts(user: widget.user),
                   SizedBox(height: screenHeight * 0.04),
-                  Consumer(builder: (context, ref, child) {
-                    final currentPage = ref.watch(currentDayPostProvider);
-                    final numberOfPages = widget.user.posts.length;
-                    return Wrap(
-                      spacing: 30,
-                      children: List.generate(numberOfPages, (index) {
-                        return Icon(
-                          Icons.circle,
-                          color: currentPage == index
-                              ? Colors.white
-                              : const Color(0xFF696969),
-                          size: 12,
-                        );
-                      }),
-                    );
-                  }),
-                  SizedBox(height: screenHeight * 0.04),
-                  const PostYourFindButton(),
-                  SizedBox(height: screenHeight * 0.04),
-                  FeedPosts(user: dummyUser),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+                    child: Column(
+                      children: [
+                        Consumer(builder: (context, ref, child) {
+                          final currentPage = ref.watch(currentDayPostProvider);
+                          final numberOfPages = widget.user.posts.length;
+                          return Wrap(
+                            spacing: 30,
+                            children: List.generate(numberOfPages, (index) {
+                              return Icon(
+                                Icons.circle,
+                                color: currentPage == index
+                                    ? Colors.white
+                                    : const Color(0xFF696969),
+                                size: 12,
+                              );
+                            }),
+                          );
+                        }),
+                        SizedBox(height: screenHeight * 0.04),
+                        const PostYourFindButton(),
+                        SizedBox(height: screenHeight * 0.04),
+                        FeedPosts(user: dummyUser),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

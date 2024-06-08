@@ -11,17 +11,24 @@ class Post {
   int points;
   final DateTime time;
   final String car;
+  int likes;
+  bool liked;
+  final List<String>? comments;
 
-  Post(
-      {String? id,
-      this.description,
-      required this.image,
-      required this.user,
-      required this.points,
-      required this.car,
-      this.location})
-      : id = id ?? Uuid().v4(),
-        time = DateTime.now();
+  Post({
+    String? id,
+    this.description,
+    required this.image,
+    required this.user,
+    required this.points,
+    required this.car,
+    this.location,
+    this.likes = 0,
+    this.liked = false,
+    List<String>? comments,
+  })  : id = id ?? Uuid().v4(),
+        time = DateTime.now(),
+        comments = comments ?? [];
 
   void editDescription(String newDescription) {
     description = newDescription;
@@ -29,5 +36,9 @@ class Post {
 
   String getId() {
     return id;
+  }
+
+  void addComment(String newComment) {
+    comments!.add(newComment);
   }
 }

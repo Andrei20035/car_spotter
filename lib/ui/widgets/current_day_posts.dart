@@ -1,8 +1,9 @@
+import 'dart:developer';
+
 import 'package:car_spotter/main.dart';
 import 'package:car_spotter/models/post.dart';
 import 'package:car_spotter/models/user.dart';
 import 'package:car_spotter/providers/current_day_post_provider.dart';
-import 'package:car_spotter/ui/widgets/scrolling_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -34,7 +35,7 @@ class _CurrentDayPostsState extends ConsumerState<CurrentDayPosts> {
   @override
   void dispose() {
     _pageController.dispose();
-    super.dispose();    
+    super.dispose();
   }
 
   @override
@@ -51,9 +52,13 @@ class _CurrentDayPostsState extends ConsumerState<CurrentDayPosts> {
           Post post = widget.user.currentDayPosts[index];
           return Row(
             children: [
+              SizedBox(width: screenWidth * 0.04),
               Expanded(
-                child: Image(
-                  image: post.image,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      image: DecorationImage(
+                          image: post.image, fit: BoxFit.cover)),
                 ),
               ),
               Expanded(
@@ -136,6 +141,7 @@ class _CurrentDayPostsState extends ConsumerState<CurrentDayPosts> {
                   ),
                 ),
               ),
+              SizedBox(width: screenWidth * 0.04)
             ],
           );
         },
