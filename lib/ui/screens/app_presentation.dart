@@ -1,6 +1,5 @@
 import 'package:car_spotter/ui/widgets/screen_pill_row.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class AppPresentation extends StatefulWidget {
   const AppPresentation({super.key, required this.screens});

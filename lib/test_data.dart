@@ -108,6 +108,44 @@ final List<User> users = List.generate(10, (index) {
   );
 });
 
+const List<String> appPresentationAssets = [
+    "assets/images/icons/google-logo.png",
+  "assets/app_presentation/app_presentation_1.png",
+  "assets/app_presentation/app_presentation_2.png",
+  "assets/app_presentation/app_presentation_3.png",
+  "assets/app_presentation/app_presentation_4.png",
+  "assets/images/icons/magnifying_glass.png",
+  "assets/images/icons/AI_cars.png",
+  "assets/images/icons/podium.png",
+  "assets/images/placeholder.png",
+];
+
+const List<String> currentDayPostAssets = [
+  "assets/images/profile_picture.jpg",
+  "assets/images/icons/points.png",
+  "assets/images/dummyCar.png",
+  "assets/images/icons/clock.png",
+  "assets/images/icons/car.png",
+  "assets/images/icons/gps.png",
+];
+
+const List<String> feedPostsAssets = [
+  "assets/images/profile_picture1.jpg",
+  "assets/images/profile_picture2.jpg",
+  "assets/images/posts/image1.jpg",
+  "assets/images/posts/image2.jpg",
+  "assets/images/posts/image3.jpg",
+  'assets/images/posts/image4.jpg',
+  'assets/images/posts/image5.jpg',
+  'assets/images/posts/image6.jpg',
+  'assets/images/posts/image7.jpg',
+  'assets/images/posts/image8.jpg',
+  'assets/images/posts/image9.jpg',
+  'assets/images/icons/three-dots.png',
+  'assets/images/icons/like.png',
+  'assets/images/icons/comment.png',
+];
+
 void loadTestData() {
   dummyUser.addPost(postsDummyUser[0]);
   dummyUser.addPost(postsDummyUser[1]);
@@ -124,3 +162,7 @@ void loadTestData() {
   dummyUser.addFriend(friend1);
   dummyUser.addFriend(friend2);
 }
+
+  
+ 
+

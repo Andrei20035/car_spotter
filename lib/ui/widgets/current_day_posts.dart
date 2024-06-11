@@ -1,9 +1,7 @@
-import 'dart:developer';
-
-import 'package:car_spotter/main.dart';
 import 'package:car_spotter/models/post.dart';
 import 'package:car_spotter/models/user.dart';
 import 'package:car_spotter/providers/current_day_post_provider.dart';
+import 'package:car_spotter/ui/widgets/scrolling_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -40,6 +38,7 @@ class _CurrentDayPostsState extends ConsumerState<CurrentDayPosts> {
 
   @override
   Widget build(BuildContext context) {
+
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
@@ -77,13 +76,7 @@ class _CurrentDayPostsState extends ConsumerState<CurrentDayPosts> {
                             scale: 1.7,
                           ),
                           const SizedBox(width: 10),
-                          Text(
-                            "${post.points} points",
-                            style: theme.textTheme.bodyLarge!.copyWith(
-                                color: const Color(0xFFFFFFFF),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                          ),
+                          AutoScrollRow(text: "${post.points} points"),
                         ],
                       ),
                       Row(
@@ -94,13 +87,7 @@ class _CurrentDayPostsState extends ConsumerState<CurrentDayPosts> {
                             scale: 2,
                           ),
                           const SizedBox(width: 10),
-                          Text(
-                            DateFormat('d MMMM HH:mm').format(post.time),
-                            style: theme.textTheme.bodyLarge!.copyWith(
-                                color: const Color(0xFFFFFFFF),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                          ),
+                          AutoScrollRow(text: DateFormat('d MMMM HH:mm').format(post.time))
                         ],
                       ),
                       Row(
@@ -111,13 +98,7 @@ class _CurrentDayPostsState extends ConsumerState<CurrentDayPosts> {
                             scale: 2,
                           ),
                           const SizedBox(width: 10),
-                          Text(
-                            post.car,
-                            style: theme.textTheme.bodyLarge!.copyWith(
-                                color: const Color(0xFFFFFFFF),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                          ),
+                          AutoScrollRow(text: post.car),
                         ],
                       ),
                       Row(
@@ -128,13 +109,7 @@ class _CurrentDayPostsState extends ConsumerState<CurrentDayPosts> {
                             scale: 2,
                           ),
                           const SizedBox(width: 10),
-                          Text(
-                            "London, UK",
-                            style: theme.textTheme.bodyLarge!.copyWith(
-                                color: const Color(0xFFFFFFFF),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                          ),
+                          const AutoScrollRow(text: "London, UK")
                         ],
                       )
                     ],

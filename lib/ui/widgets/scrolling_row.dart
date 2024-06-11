@@ -1,97 +1,31 @@
-import 'dart:async';
-
+import 'package:car_spotter/main.dart';
 import 'package:flutter/material.dart';
+import 'package:text_scroll/text_scroll.dart';
 
-class AutoScrollRow extends StatefulWidget {
-  const AutoScrollRow({super.key, required this.text});
+class AutoScrollRow extends StatelessWidget {
+  const AutoScrollRow({super.key, required this.text, this.fontWeight = FontWeight.w600, this.size = 14});
 
   final String text;
-
-  @override
-  State<AutoScrollRow> createState() {
-    return _AutoScrollRowState();
-  }
-}
-
-class _AutoScrollRowState extends State<AutoScrollRow> {
-  late ScrollController _scrollController;
-  late Timer _timer;
-  bool _scrollForward = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-    _startAutoScroll();
-  }
-
-  void _startAutoScroll() {
-    const duration = Duration(seconds: 3);
-    _timer = Timer.periodic(duration, (timer) {
-      if (_scrollController.hasClients) {
-        final maxScrollExtent = _scrollController.position.maxScrollExtent;
-        final minScrollExtent = _scrollController.position.minScrollExtent;
-        if (_scrollForward) {
-          _scrollController.animateTo(
-            maxScrollExtent,
-            duration: duration,
-            curve: Curves.easeInOut,
-          );
-        } else {
-          _scrollController.animateTo(
-            minScrollExtent,
-            duration: duration,
-            curve: Curves.easeInOut,
-          );
-        }
-        _scrollForward = !_scrollForward;
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    _scrollController.dispose();
-    super.dispose();
-  }
+  final FontWeight fontWeight;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return ShaderMask(
-      shaderCallback: (bounds) {
-        return const LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: [Colors.transparent, Colors.white, Colors.white, Colors.transparent],
-          stops: [0.0, 0.1, 0.9, 1.0],
-        ).createShader(bounds);
-      },
-      blendMode: BlendMode.dstIn,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        controller: _scrollController,
-        children: [
-          Row(
-            children: [
-              const SizedBox(width: 3),
-              Image.asset(
-                'assets/images/icons/car.png',
-                scale: 2,
-              ),
-              const SizedBox(width: 10),
-              Text(
-                widget.text,
-                style: theme.textTheme.bodyLarge!.copyWith(
-                    color: const Color(0xFFFFFFFF),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600),
-              ),
-            ],
-          )
-        ],
+    return Flexible(
+      child: TextScroll(
+        text,
+        mode: TextScrollMode.bouncing,
+        velocity: const Velocity(pixelsPerSecond: Offset(30, 0)),
+        delayBefore: const Duration(seconds: 2),
+        numberOfReps: 500,
+        pauseBetween: const Duration(seconds: 2),
+        fadedBorder: true,
+        fadeBorderSide: FadeBorderSide.right,
+        pauseOnBounce: const Duration(seconds: 2),
+        style: theme.textTheme.bodyLarge!.copyWith(
+            color: const Color(0xFFFFFFFF),
+            fontSize: size,
+            fontWeight: fontWeight),
       ),
     );
   }

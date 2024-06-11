@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:car_spotter/main.dart';
 import 'package:car_spotter/models/post.dart';
 import 'package:car_spotter/models/user.dart';
+import 'package:car_spotter/ui/widgets/scrolling_row.dart';
 import 'package:flutter/material.dart';
 
 class FeedPosts extends StatefulWidget {
@@ -18,6 +19,7 @@ class _FeedPostsState extends State<FeedPosts> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     final List<User> friends = widget.user.friends;
 
@@ -42,46 +44,47 @@ class _FeedPostsState extends State<FeedPosts> {
                   radius: screenHeight * 0.0246875,
                 ),
                 const SizedBox(width: 8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      post.user.username,
-                      style: theme.textTheme.bodyMedium!.copyWith(
-                        fontSize: 13,
-                        color: Colors.white,
+                SizedBox(
+                  width: screenWidth * 0.7,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        post.user.username,
+                        style: theme.textTheme.bodyMedium!.copyWith(
+                          fontSize: 13,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          'assets/images/icons/car.png',
-                          scale: 3,
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          '${post.car},',
-                          style: theme.textTheme.bodyMedium!.copyWith(
-                            fontSize: 13,
-                            color: Colors.white,
+                      Row(
+                        children: [
+                          Image.asset(
+                            'assets/images/icons/car.png',
+                            scale: 3,
                           ),
-                        ),
-                        const SizedBox(width: 5),
-                        Image.asset(
-                          'assets/images/icons/gps.png',
-                          scale: 3,
-                        ),
-                        const SizedBox(width: 3),
-                        Text(
-                          post.location ?? "No location found",
-                          style: theme.textTheme.bodyMedium!.copyWith(
-                            fontSize: 13,
-                            color: Colors.white,
+                          const SizedBox(width: 5),
+                          Text(
+                            '${post.car},',
+                            style: theme.textTheme.bodyMedium!.copyWith(
+                              fontSize: 13,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                      ],
-                    )
-                  ],
+                          const SizedBox(width: 5),
+                          Image.asset(
+                            'assets/images/icons/gps.png',
+                            scale: 3,
+                          ),
+                          const SizedBox(width: 3),
+                          AutoScrollRow(
+                            text: post.location ?? "N/A",
+                            size: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
                 const Spacer(),
                 GestureDetector(

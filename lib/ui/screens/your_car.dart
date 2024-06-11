@@ -18,6 +18,7 @@ class _YourCarState extends State<YourCar> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    preloadAssets(context, feedPostsAssets);
 
     return Scaffold(
       body: Container(
