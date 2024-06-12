@@ -108,6 +108,8 @@ flutter:
     - assets/images/icons/three-dots.png
     - assets/images/icons/like.png
     - assets/images/icons/comment.png
+    - assets/images/post_with_camera.png
+    - assets/images/post_from_gallery.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
