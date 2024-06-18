@@ -4,7 +4,7 @@ class Car {
   final String make;
   final String model;
   final int year;
-  Image? picture;
+  ImageProvider? picture;
 
   Car({
     required this.make,
@@ -13,7 +13,7 @@ class Car {
     this.picture
   });
 
-  void updateCarPicture(Image newPicture) {
+  void updateCarPicture(ImageProvider newPicture) {
     picture = newPicture;
   }
 

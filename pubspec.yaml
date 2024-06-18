@@ -38,7 +38,7 @@ dependencies:
   google_fonts: ^6.2.1
   simple_gradient_text: ^1.3.0
   sized_context: ^1.0.0+4
-  image_picker: ^1.1.1
+  image_picker: ^1.1.2
   csc_picker: ^0.2.7
   uuid: ^4.4.0
   google_maps_flutter: ^2.6.1
@@ -110,6 +110,9 @@ flutter:
     - assets/images/icons/comment.png
     - assets/images/post_with_camera.png
     - assets/images/post_from_gallery.png
+    - assets/images/icons/arrow-square-down.png
+    - assets/images/user_car_placeholder.png
+    - assets/images/leaderboard.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

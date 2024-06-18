@@ -1,6 +1,7 @@
 import 'package:car_spotter/main.dart';
 import 'package:car_spotter/models/user.dart';
 import 'package:car_spotter/providers/current_day_post_provider.dart';
+import 'package:car_spotter/providers/user_provider.dart';
 import 'package:car_spotter/test_data.dart';
 import 'package:car_spotter/ui/widgets/current_day_posts.dart';
 import 'package:car_spotter/ui/widgets/feed_posts.dart';
@@ -10,23 +11,24 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-class FeedScreen extends StatefulWidget {
+class FeedScreen extends ConsumerStatefulWidget {
   const FeedScreen({super.key, required this.user});
 
   final User user;
 
   @override
-  State<FeedScreen> createState() {
+  ConsumerState<FeedScreen> createState() {
     return _FeedScreenState();
   }
 }
 
-class _FeedScreenState extends State<FeedScreen> {
+class _FeedScreenState extends ConsumerState<FeedScreen> {
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final double screenHeight = ScreenSize.screenHeight;
+    final double screenWidth = ScreenSize.screenWidth;
     final gradientHeight = screenHeight * 0.5;
+    final userNotifier = ref.read(userNotifierProvider.notifier);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -45,7 +47,7 @@ class _FeedScreenState extends State<FeedScreen> {
               ],
               stops: [
                 0.5,
-                0.7, 
+                0.7,
                 0.9,
                 1,
               ],
@@ -58,9 +60,12 @@ class _FeedScreenState extends State<FeedScreen> {
             backgroundColor: Colors.transparent,
             centerTitle: true,
             leading: Padding(
-              padding: EdgeInsets.only(left: screenWidth * 0.0),
+              padding: const EdgeInsets.only(left: 3),
               child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    userNotifier.setUser(widget.user);
+                    Navigator.pushNamed(context, '/friends');
+                  },
                   icon: const Icon(
                     Icons.people,
                     color: Colors.white,
@@ -90,9 +95,16 @@ class _FeedScreenState extends State<FeedScreen> {
             actions: [
               Padding(
                 padding: EdgeInsets.only(right: screenWidth * 0.044),
-                child: CircleAvatar(
+                child: GestureDetector(
+                  child: CircleAvatar(
                     backgroundImage: widget.user.getProfilePicture(),
-                    radius: screenWidth * 0.055),
+                    radius: screenWidth * 0.055,
+                  ),
+                  onTap: () {
+                    userNotifier.setUser(widget.user);
+                    Navigator.pushNamed(context, '/profileDashboard');
+                  },
+                ),
               ),
             ],
           ),

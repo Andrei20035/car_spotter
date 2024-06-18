@@ -1,6 +1,5 @@
 import 'package:car_spotter/main.dart';
 import 'package:car_spotter/ui/widgets/add_picture.dart';
-import 'package:car_spotter/ui/widgets/country_picker.dart';
 import 'package:car_spotter/ui/widgets/login_button.dart';
 import 'package:car_spotter/ui/widgets/text_input_field.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +59,7 @@ class ProfileCustomization extends StatelessWidget {
                       titleColor: const Color(0xFFDFA3A3),
                     ),
                     SizedBox(height: screenHeight * 0.02),
-                    const CountryPicker(),
+                    // const CountryPicker(),
                     SizedBox(height: screenHeight * 0.08),
                     LoginButton(
                       color: const Color(0xFFF0AB25),

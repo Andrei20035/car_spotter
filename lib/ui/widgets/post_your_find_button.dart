@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:car_spotter/main.dart';
@@ -11,99 +10,88 @@ import 'package:image_picker/image_picker.dart';
 class PostYourFindButton extends StatelessWidget {
   const PostYourFindButton({super.key});
 
+  Future<void> _pickImage(BuildContext context, ImageSource source) async {
+    final ImagePicker picker = ImagePicker();
+    try {
+      final XFile? image = await picker.pickImage(
+        source: source,
+        maxHeight: 1024,
+        maxWidth: 1024,
+      );
+
+      if (image != null) {
+        if (context.mounted) {
+          Navigator.of(context).pop();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) =>
+                  ImageUploadScreen(image: image),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      print("Error picking image: $e");
+    }
+  }
+
+  void showOverlay(BuildContext context, screenWidth, screenHeight) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                  child: Container(
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                ),
+              ),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      child: CircleAvatar(
+                        backgroundImage: const AssetImage(
+                            "assets/images/post_with_camera.png"),
+                        radius: screenWidth * 0.1805,
+                      ),
+                        onTap: () => _pickImage(context, ImageSource.camera),
+                    ),
+                    SizedBox(width: screenWidth * 0.1),
+                    GestureDetector(
+                      child: CircleAvatar(
+                        backgroundImage: const AssetImage(
+                            "assets/images/post_from_gallery.png"),
+                        radius: screenWidth * 0.1805,
+                      ),
+                      onTap: () => _pickImage(context, ImageSource.gallery),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    final GlobalKey widgetKey = GlobalKey();
-
-    void showOverlay(BuildContext context) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                    child: Container(
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        key: widgetKey,
-                        child: CircleAvatar(
-                          backgroundImage: const AssetImage(
-                              "assets/images/post_with_camera.png"),
-                          radius: screenWidth * 0.1805,
-                        ),
-                        onTap: () async {
-                          final ImagePicker picker = ImagePicker();
-                          final XFile? image = await picker.pickImage(
-                            source: ImageSource.camera,
-                            maxHeight: 1024,
-                            maxWidth: 1024,
-                          );
-                          if (image != null &&
-                              widgetKey.currentContext != null) {
-                            Navigator.of(context).pop();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    ImageUploadScreen(image: image),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                      SizedBox(width: screenWidth * 0.1),
-                      GestureDetector(
-                        child: CircleAvatar(
-                          backgroundImage: const AssetImage(
-                              "assets/images/post_from_gallery.png"),
-                          radius: screenWidth * 0.1805,
-                        ),
-                        onTap: () async {
-                          final ImagePicker picker = ImagePicker();
-                          final XFile? image = await picker.pickImage(
-                            source: ImageSource.gallery,
-                            maxHeight: 1024,
-                            maxWidth: 1024,
-                          );
-                          if (image != null &&
-                              widgetKey.currentContext != null) {
-                            Navigator.of(context).pop();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    ImageUploadScreen(image: image),
-                              ),
-                            );
-                          }
-                        },
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          );
-        },
-      );
-    }
 
     return GestureDetector(
       onTap: () {
-        showOverlay(context);
+        showOverlay(context, screenWidth, screenHeight);
       },
       child: DecoratedBox(
         decoration: const BoxDecoration(

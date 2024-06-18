@@ -160,7 +160,9 @@ void loadTestData() {
   friend2.addPost(postsFriend2[2]);
 
   dummyUser.addFriend(friend1);
+  dummyUser.addFriend(friend1);
   dummyUser.addFriend(friend2);
+
 }
 
   

@@ -3,14 +3,14 @@ import 'package:car_spotter/test_data.dart';
 import 'package:car_spotter/ui/screens/app_presentation.dart';
 import 'package:car_spotter/models/list_of_screens.dart';
 import 'package:car_spotter/ui/screens/feed.dart';
-import 'package:car_spotter/ui/screens/image_upload.dart';
+import 'package:car_spotter/ui/screens/friends.dart';
 import 'package:car_spotter/ui/screens/login.dart';
 import 'package:car_spotter/ui/screens/profile_customization.dart';
+import 'package:car_spotter/ui/screens/profile_dashboard.dart';
 import 'package:car_spotter/ui/screens/your_car.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 
 const List<String> assets = [
   "assets/images/icons/google-logo.png",
@@ -89,9 +89,18 @@ final theme = ThemeData(
   textTheme: GoogleFonts.poppinsTextTheme(),
 );
 
+class ScreenSize {
+  static late double screenWidth;
+  static late double screenHeight;
+
+  static void init(BuildContext context) {
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
+  }
+}
+
 void main() {
   loadTestData();
-
   runApp(
     const ProviderScope(
       child: PreloadApp(),
@@ -114,6 +123,8 @@ class App extends StatelessWidget {
         '/profileCustomization': (context) => const ProfileCustomization(),
         '/yourCar': (context) => const YourCar(),
         '/feed': (context) => FeedScreen(user: dummyUser),
+        '/profileDashboard': (context) => const ProfileDashboardScreen(),
+        '/friends': (context) => const FriendsScreen(),
       },
     );
   }

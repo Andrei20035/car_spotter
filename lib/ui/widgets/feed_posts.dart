@@ -181,6 +181,15 @@ class _FeedPostsState extends State<FeedPosts> {
                               color: Colors.white,
                               fontWeight: FontWeight.w600),
                         ),
+                        SizedBox(width: screenWidth * 0.444),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.share,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                        ),
                       ],
                     ),
                   ),

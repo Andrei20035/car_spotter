@@ -7,6 +7,7 @@ class PreloadApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize.init(context);
     return FutureBuilder(
       future: preloadAssets(context, appPresentationAssets),
       builder: (context, snapshot) {
