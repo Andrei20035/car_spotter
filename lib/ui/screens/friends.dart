@@ -17,8 +17,7 @@ class FriendsScreen extends ConsumerStatefulWidget {
 class _FriendsScreenState extends ConsumerState<FriendsScreen> {
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = ScreenSize.screenHeight;
-    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(

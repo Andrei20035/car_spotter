@@ -2,17 +2,20 @@ import 'package:car_spotter/main.dart';
 import 'package:flutter/material.dart';
 
 class TextInputField extends StatelessWidget {
-  const TextInputField(
-      {super.key,
-      required this.controller,
-      required this.text,
-      this.cursorColor = const Color(0xFF434343),
-      this.titleColor = const Color(0xFF434343)});
+  const TextInputField({
+    super.key,
+    required this.controller,
+    required this.text,
+    this.cursorColor = const Color(0xFF434343),
+    this.titleColor = const Color(0xFF434343),
+    this.keyboardType = TextInputType.text
+  });
 
   final Color cursorColor;
   final Color titleColor;
   final TextEditingController controller;
   final String text;
+  final TextInputType keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class TextInputField extends StatelessWidget {
           padding: EdgeInsets.only(left: screenWidth * 0.07),
           child: Text(
             text,
-            style: theme.textTheme.titleLarge!.copyWith(
+            style:Theme.of(context).textTheme.titleLarge!.copyWith(
               fontSize: 13,
               color: titleColor,
               fontWeight: FontWeight.w600,
@@ -49,13 +52,13 @@ class TextInputField extends StatelessWidget {
             child: TextFormField(
               // Alti parametri de specificat
               controller: controller,
-              style: theme.textTheme.bodyLarge!.copyWith(
+              style:Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: cursorColor,
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
               ),
               cursorColor: cursorColor,
-              keyboardType: TextInputType.emailAddress,
+              keyboardType: keyboardType,
               autocorrect: false,
               textCapitalization: TextCapitalization.none,
               decoration: InputDecoration(

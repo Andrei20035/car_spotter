@@ -1,4 +1,3 @@
-import 'package:car_spotter/main.dart';
 import 'package:car_spotter/ui/widgets/screen_pill_row.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +45,7 @@ class _AppPresentationState extends State<AppPresentation>
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = ScreenSize.screenWidth;
+    final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: Stack(

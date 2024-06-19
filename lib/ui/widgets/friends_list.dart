@@ -16,8 +16,8 @@ class FriendsList extends ConsumerStatefulWidget {
 class _FriendsListState extends ConsumerState<FriendsList> {
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = ScreenSize.screenHeight;
-    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
 
     final currentUser = ref.watch(userNotifierProvider);
     final isFriendsSelected = ref.watch(friendsSelectionProvider);
@@ -54,7 +54,45 @@ class _FriendsListState extends ConsumerState<FriendsList> {
                       color: Colors.white,
                       fontSize: 15,
                     ),
-                  )
+                  ),
+                  const Spacer(),
+                  if (!isFriendsSelected) ...[
+                    GestureDetector(
+                      onTap: () {
+                        ref
+                            .read(userNotifierProvider.notifier)
+                            .acceptFriendRequest(user);
+                      },
+                      child: Container(
+                        height: screenHeight * 0.0425,
+                        width: screenWidth * 0.1083,
+                        decoration: const BoxDecoration(
+                            color: Color(0xFF3A9AFF),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        child: const Icon(Icons.done,
+                            color: Color(0xFF0051B1), size: 25),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    GestureDetector(
+                      onTap: () {
+                        ref
+                            .read(userNotifierProvider.notifier)
+                            .removeFriendRequest(user);
+                      },
+                      child: Container(
+                        height: screenHeight * 0.0425,
+                        width: screenWidth * 0.1083,
+                        decoration: const BoxDecoration(
+                            color: Color(0xFFFFB5B5),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        child: const Icon(Icons.close_rounded,
+                            color: Color(0xFFE8546E), size: 25),
+                      ),
+                    ),
+                  ]
                 ],
               ),
             ),

@@ -25,8 +25,8 @@ class FeedScreen extends ConsumerStatefulWidget {
 class _FeedScreenState extends ConsumerState<FeedScreen> {
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = ScreenSize.screenHeight;
-    final double screenWidth = ScreenSize.screenWidth;
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     final gradientHeight = screenHeight * 0.5;
     final userNotifier = ref.read(userNotifierProvider.notifier);
 

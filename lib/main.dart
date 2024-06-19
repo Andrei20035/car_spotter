@@ -4,10 +4,13 @@ import 'package:car_spotter/ui/screens/app_presentation.dart';
 import 'package:car_spotter/models/list_of_screens.dart';
 import 'package:car_spotter/ui/screens/feed.dart';
 import 'package:car_spotter/ui/screens/friends.dart';
+
 import 'package:car_spotter/ui/screens/login.dart';
 import 'package:car_spotter/ui/screens/profile_customization.dart';
 import 'package:car_spotter/ui/screens/profile_dashboard.dart';
+import 'package:car_spotter/ui/screens/settings.dart';
 import 'package:car_spotter/ui/screens/your_car.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -89,15 +92,6 @@ final theme = ThemeData(
   textTheme: GoogleFonts.poppinsTextTheme(),
 );
 
-class ScreenSize {
-  static late double screenWidth;
-  static late double screenHeight;
-
-  static void init(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
-  }
-}
 
 void main() {
   loadTestData();
@@ -115,7 +109,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      initialRoute: '/AppPresentation',
+      initialRoute: '/settings',
       routes: {
         '/AppPresentation': (context) =>
             AppPresentation(screens: ScreenList().screens),
@@ -125,6 +119,7 @@ class App extends StatelessWidget {
         '/feed': (context) => FeedScreen(user: dummyUser),
         '/profileDashboard': (context) => const ProfileDashboardScreen(),
         '/friends': (context) => const FriendsScreen(),
+        '/settings': (context) =>  const SettingsScreen(),
       },
     );
   }

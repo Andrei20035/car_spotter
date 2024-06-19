@@ -1,6 +1,7 @@
 import 'package:car_spotter/main.dart';
 import 'package:car_spotter/models/user.dart';
 import 'package:car_spotter/providers/user_provider.dart';
+import 'package:car_spotter/ui/screens/settings.dart';
 import 'package:car_spotter/ui/widgets/leaderboard.dart';
 import 'package:car_spotter/ui/widgets/spot_score.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +13,12 @@ class ProfileDashboardScreen extends ConsumerStatefulWidget {
   const ProfileDashboardScreen({super.key});
 
   @override
-  ConsumerState<ProfileDashboardScreen> createState() => _ProfileDashboardScreenState();
+  ConsumerState<ProfileDashboardScreen> createState() =>
+      _ProfileDashboardScreenState();
 }
 
-class _ProfileDashboardScreenState extends ConsumerState<ProfileDashboardScreen> {
+class _ProfileDashboardScreenState
+    extends ConsumerState<ProfileDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -64,11 +67,14 @@ class _ProfileDashboardScreenState extends ConsumerState<ProfileDashboardScreen>
                 fontSize: 17,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
+                letterSpacing: 1,
               ),
             ),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/settings');
+                },
                 icon: const Icon(
                   Icons.settings,
                   color: Colors.white,

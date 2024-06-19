@@ -24,12 +24,33 @@ class _LogInScreenState extends State<LogInScreen> {
 
   bool isSignUp = false;
 
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+  TextEditingController? usernameController;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    usernameController = null;
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    usernameController?.dispose();
+    super.dispose();
+  }
+
   void signUp() {
     setState(() {
       isSignUp = true;
       containerHeight = containerHeightSignUp;
       titleSpace = titleSpaceSignUp;
       fields.insert(0, 'Username');
+      usernameController = TextEditingController();
     });
   }
 
@@ -39,9 +60,10 @@ class _LogInScreenState extends State<LogInScreen> {
       containerHeight = containerHeightLogIn;
       titleSpace = titleSpaceLogIn;
       fields.removeAt(0);
+      usernameController?.dispose();
+      usernameController = null;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +71,7 @@ class _LogInScreenState extends State<LogInScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -128,21 +151,33 @@ class _LogInScreenState extends State<LogInScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: screenHeight * 0.05),
-                            for (var field in fields)
+                            if (isSignUp)
                               Column(
                                 children: [
                                   TextInputField(
-                                    text: field,
-                                    controller: TextEditingController(),
+                                    text: 'Username',
+                                    controller: usernameController!,
                                   ),
                                   SizedBox(height: screenHeight * 0.015),
                                 ],
                               ),
+                            TextInputField(
+                              text: 'Email address',
+                              controller: emailController,
+                            ),
+                            SizedBox(height: screenHeight * 0.015),
+                            TextInputField(
+                              text: 'Password',
+                              controller: passwordController,
+                            ),
                             SizedBox(height: screenHeight * 0.095),
                             LoginButton(
                               text: isSignUp ? "Sign Up" : "Log In",
                               color: const Color(0xFFF0AB25),
-                              onPressed: () {Navigator.pushNamed(context, "/profileCustomization");},
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, "/profileCustomization");
+                              },
                             ),
                             SizedBox(height: screenHeight * 0.03),
                             LoginButton(
@@ -150,7 +185,10 @@ class _LogInScreenState extends State<LogInScreen> {
                                   ? "Sign Up with Google"
                                   : "Log In with Google",
                               color: const Color(0xFFD9D9D9),
-                              onPressed: () {Navigator.pushNamed(context, "/profileCustomization");},
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, "/profileCustomization");
+                              },
                               icon: true,
                             ),
                             SizedBox(height: screenHeight * 0.025),
@@ -158,7 +196,9 @@ class _LogInScreenState extends State<LogInScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  isSignUp ? "Already have an account?" : "Don't have an acount?" ,
+                                  isSignUp
+                                      ? "Already have an account?"
+                                      : "Don't have an acount?",
                                   style: theme.textTheme.bodyLarge!.copyWith(
                                     fontSize: 13,
                                     color: Colors.black,
