@@ -11,22 +11,20 @@ class FriendsSwitch extends ConsumerStatefulWidget {
 }
 
 class _FriendsSwitchState extends ConsumerState<FriendsSwitch> {
-  bool _isFriendsSelected = true;
-
   @override
   Widget build(BuildContext context) {
+    final isFriendsSelected =
+        ref.watch(friendsSelectionProvider.notifier).state;
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
           onTap: () {
             ref.read(friendsSelectionProvider.notifier).state = true;
-            setState(() {
-              _isFriendsSelected = true;
-            });
+            setState(() {});
           },
           child: Column(
             children: [
@@ -34,7 +32,7 @@ class _FriendsSwitchState extends ConsumerState<FriendsSwitch> {
                 width: screenWidth * 0.4166,
                 height: screenHeight * 0.0525,
                 decoration: BoxDecoration(
-                  color: _isFriendsSelected
+                  color: isFriendsSelected
                       ? const Color(0xFF2B8CFE)
                       : const Color(0xFF4A4A4A),
                   borderRadius: const BorderRadius.only(
@@ -55,7 +53,7 @@ class _FriendsSwitchState extends ConsumerState<FriendsSwitch> {
               const SizedBox(height: 5),
               Icon(
                 Icons.circle,
-                color: _isFriendsSelected
+                color: isFriendsSelected
                     ? const Color(0xFF2B8CFE)
                     : Colors.transparent,
                 size: 8,
@@ -66,9 +64,7 @@ class _FriendsSwitchState extends ConsumerState<FriendsSwitch> {
         GestureDetector(
           onTap: () {
             ref.read(friendsSelectionProvider.notifier).state = false;
-            setState(() {
-              _isFriendsSelected = false;
-            });
+            setState(() {});
           },
           child: Column(
             children: [
@@ -76,7 +72,7 @@ class _FriendsSwitchState extends ConsumerState<FriendsSwitch> {
                 width: screenWidth * 0.4166,
                 height: screenHeight * 0.0525,
                 decoration: BoxDecoration(
-                  color: _isFriendsSelected
+                  color: isFriendsSelected
                       ? const Color(0xFF4A4A4A)
                       : const Color(0xFF2B8CFE),
                   borderRadius: const BorderRadius.only(
@@ -97,7 +93,7 @@ class _FriendsSwitchState extends ConsumerState<FriendsSwitch> {
               const SizedBox(height: 5),
               Icon(
                 Icons.circle,
-                color: _isFriendsSelected
+                color: isFriendsSelected
                     ? Colors.transparent
                     : const Color(0xFF2B8CFE),
                 size: 8,

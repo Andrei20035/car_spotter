@@ -109,7 +109,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      initialRoute: '/settings',
+      initialRoute: '/AppPresentation',
       routes: {
         '/AppPresentation': (context) =>
             AppPresentation(screens: ScreenList().screens),

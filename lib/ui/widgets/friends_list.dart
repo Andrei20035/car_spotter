@@ -23,6 +23,7 @@ class _FriendsListState extends ConsumerState<FriendsList> {
     final isFriendsSelected = ref.watch(friendsSelectionProvider);
     final friendsList =
         isFriendsSelected ? currentUser.friends : currentUser.friendRequests;
+    print(isFriendsSelected);
 
     return ListView.builder(
       padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
