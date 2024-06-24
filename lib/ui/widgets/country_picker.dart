@@ -1,6 +1,6 @@
 import 'package:car_spotter/main.dart';
-import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:country_picker/country_picker.dart';
 
 class CountryPicker extends StatefulWidget {
   const CountryPicker({super.key});
@@ -10,11 +10,19 @@ class CountryPicker extends StatefulWidget {
 }
 
 class _CountryPickerState extends State<CountryPicker> {
-  String countryValue = "";
+  late String countryValue;
+  late String flag;
+  @override
+  void initState() {
+    super.initState();
+    countryValue = '';
+    flag = '';
+  }
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,48 +38,73 @@ class _CountryPickerState extends State<CountryPicker> {
             ),
           ),
         ),
-        // Container(
-        //   margin: const EdgeInsets.only(
-        //     top: 2,
-        //   ),
-        //   width: double.infinity,
-        //   height: screenHeight * 0.06,
-        //   decoration: const BoxDecoration(
-        //     borderRadius: BorderRadius.all(
-        //       Radius.circular(300),
-        //     ),
-        //     color: Color(0xFFD9D9D9),
-        //   ),
-        // Padding(
-        //     padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.00),
-        CSCPicker(
-          flagState: CountryFlag.ENABLE,
-          dropdownDecoration: const BoxDecoration(
-            color: Color(0xFFD9D9D9),
-            borderRadius: BorderRadius.all(Radius.circular(300)),
-
-          ),
-          disabledDropdownDecoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(40)),
-              color: Colors.black,
-              border: Border.all(
-                color: Colors.grey.shade300,
-                width: 1,
-              )),
-          dropdownHeadingStyle: theme.textTheme.titleLarge!.copyWith(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
-          showCities: false,
-          showStates: false,
-          searchBarRadius: 20,
-          defaultCountry: CscCountry.France,
-          countryDropdownLabel: countryValue,
-          onCountryChanged: (value) {
-            setState(() {
-              countryValue = value;
-            });
+        GestureDetector(
+          onTap: () {
+            showCountryPicker(
+              context: context,
+              onSelect: (Country country) {
+                setState(() {
+                  countryValue = country.name;
+                  flag = country.flagEmoji;
+                });
+              },
+              countryListTheme: CountryListThemeData(
+                backgroundColor: const Color(0xFFD9D9D9),
+                textStyle: theme.textTheme.bodyMedium!.copyWith(
+                  fontSize: 15,
+                  color: const Color(0xFF434343),
+                ),
+                inputDecoration: const InputDecoration(
+                  labelText: 'Search',
+                  prefixIcon: Icon(Icons.search),
+                ),
+                searchTextStyle: theme.textTheme.bodyMedium!.copyWith(
+                  fontSize: 15,
+                  color: const Color(0xFF434343),
+                ),
+              ),
+            );
           },
+          child: Container(
+            margin: const EdgeInsets.only(
+              top: 2,
+            ),
+            height: screenHeight * 0.06,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(300),
+              ),
+              color: Color(0xFFD9D9D9),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.07),
+              child: Row(
+                children: [
+                  Text(
+                    flag,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    countryValue,
+                    style: theme.textTheme.bodyMedium!.copyWith(
+                      color: const Color(0xFF434343),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const Spacer(),
+                  const ImageIcon(
+                    AssetImage(
+                      "assets/images/icons/arrow-square-down.png",
+                    ),
+                    size: 30,
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ],
     );

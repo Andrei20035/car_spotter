@@ -1,11 +1,34 @@
 import 'package:car_spotter/main.dart';
 import 'package:car_spotter/ui/widgets/add_picture.dart';
+import 'package:car_spotter/ui/widgets/country_picker.dart';
 import 'package:car_spotter/ui/widgets/login_button.dart';
 import 'package:car_spotter/ui/widgets/text_input_field.dart';
 import 'package:flutter/material.dart';
 
-class ProfileCustomization extends StatelessWidget {
+class ProfileCustomization extends StatefulWidget {
   const ProfileCustomization({super.key});
+
+  @override
+  State<ProfileCustomization> createState() => _ProfileCustomizationState();
+}
+
+class _ProfileCustomizationState extends State<ProfileCustomization> {
+  late TextEditingController firstNameController;
+  late TextEditingController lastNameController;
+
+  @override
+  void initState() {
+    super.initState();
+    firstNameController = TextEditingController();
+    lastNameController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,18 +71,18 @@ class ProfileCustomization extends StatelessWidget {
                     const AddPicture(),
                     SizedBox(height: screenHeight * 0.07125),
                     TextInputField(
-                      controller: TextEditingController(),
+                      controller: firstNameController,
                       text: "First name",
                       titleColor: const Color(0xFFDFA3A3),
                     ),
                     SizedBox(height: screenHeight * 0.02),
                     TextInputField(
-                      controller: TextEditingController(),
+                      controller: lastNameController,
                       text: "Last name",
                       titleColor: const Color(0xFFDFA3A3),
                     ),
                     SizedBox(height: screenHeight * 0.02),
-                    // const CountryPicker(),
+                    const CountryPicker(),
                     SizedBox(height: screenHeight * 0.08),
                     LoginButton(
                       color: const Color(0xFFF0AB25),

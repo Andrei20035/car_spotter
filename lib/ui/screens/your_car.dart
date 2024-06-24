@@ -1,5 +1,6 @@
 import 'package:car_spotter/main.dart';
 import 'package:car_spotter/ui/widgets/add_picture.dart';
+import 'package:car_spotter/ui/widgets/car_brands_dropdown.dart';
 import 'package:car_spotter/ui/widgets/login_button.dart';
 import 'package:car_spotter/ui/widgets/text_input_field.dart';
 import 'package:flutter/material.dart';
@@ -55,11 +56,7 @@ class _YourCarState extends State<YourCar> {
                     SizedBox(height: screenHeight * 0.02875),
                     const AddPicture(),
                     SizedBox(height: screenHeight * 0.07125),
-                    TextInputField(
-                      controller: TextEditingController(),
-                      text: "Brand",
-                      titleColor: const Color(0xFFDFA3A3),
-                    ),
+                    CarBrandsDropdown(),
                     SizedBox(height: screenHeight * 0.02),
                     TextInputField(
                       controller: TextEditingController(),

@@ -10,6 +10,7 @@ import 'package:car_spotter/ui/screens/profile_customization.dart';
 import 'package:car_spotter/ui/screens/profile_dashboard.dart';
 import 'package:car_spotter/ui/screens/settings.dart';
 import 'package:car_spotter/ui/screens/your_car.dart';
+import 'package:country_picker/country_picker.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -109,7 +110,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      initialRoute: '/AppPresentation',
+      initialRoute: '/yourCar',
       routes: {
         '/AppPresentation': (context) =>
             AppPresentation(screens: ScreenList().screens),

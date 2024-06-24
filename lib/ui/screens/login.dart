@@ -12,8 +12,8 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
-  final double containerHeightLogIn = 0.5717;
-  final double containerHeightSignUp = 0.6728;
+  final double containerHeightLogIn = 0.5715;
+  final double containerHeightSignUp = 0.6725;
   final double titleSpaceSignUp = 0.0723;
   final double titleSpaceLogIn = 0.123;
 
@@ -130,7 +130,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       ],
                     ),
                   ),
-                  // SizedBox(height: screenHeight * 0.1),
+                  // SizedBox(height: screenHeight * 0.03),
                   Container(
                     height: screenHeight * containerHeight,
                     width: double.infinity,
@@ -154,6 +154,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             if (isSignUp)
                               Column(
                                 children: [
+                                  SizedBox(height: screenHeight * 0.0032),
                                   TextInputField(
                                     text: 'Username',
                                     controller: usernameController!,
